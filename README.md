@@ -5,14 +5,6 @@ Use Conviva JavaScript ECO SDK to auto-collect events and track application-spec
 **Table of Contents**
 - [Quick Start](#quick-start)
 - [More Features](#more-features)
-    - [Track Custom Event](#track-custom-event)
-    - [Set Custom Tags](#set-custom-tags)
-    - [Traceparent Header Generation and Collection](#traceparent-header-generation-and-collection)
-    - [Report Page View](#report-page-view)
-    - [Error Reporting](#error-reporting)
-    - [Client ID Synchronization](#client-id-synchronization)
-    - [Meta Tags Collection](#meta-tags-collection)
-    - [Set Device Metadata](#set-device-metadata)
 - [Auto-collected Events](#auto-collected-events)
 - [FAQ](#faq)
 
@@ -32,17 +24,15 @@ yarn add @convivainc/conviva-js-appanalytics
 
 ### 2. Initialization
 
-```js
-// Import the necessary functions from the package:
-import { convivaAppTracker, trackPageView, trackCustomEvent, setUserId, setClientId, getClientId } from '@convivainc/conviva-js-appanalytics';
-```
 **Note**: It is recommended to initialize the tracker **as early as possible** during the DOM load sequence.
 ```js
-convivaAppTracker({
+import { convivaAppTracker } from '@convivainc/conviva-js-appanalytics';
+// ...
+    convivaAppTracker({
         appId: 'YOUR_APP_NAME_AS_STRING',
         convivaCustomerKey: 'CONVIVA_ACCOUNT_CUSTOMER_KEY',
         appVersion: "1.1.0"
-});
+    });
 ```
 **appId** - A string value used to distinguish your applications. Simple values that are unique across all of your integrated platforms work best here. For example: `"WEB App"`, `"LGTV Web App"`.
 
@@ -54,6 +44,8 @@ convivaAppTracker({
 User ID is a unique identifier used to distinguish individual viewers or devices. For example, `crypto.randomUUID()`. If the [Conviva Video Sensor](https://github.com/Conviva/conviva-js-coresdk) is integrated, set it to the same value as the **Viewer ID** reported for Video.
 
 ```js
+import { setUserId } from '@convivainc/conviva-js-appanalytics';
+
 setUserId('replace_me_by_the_userId');
 ```
 
@@ -68,6 +60,8 @@ Use the **trackCustomEvent()** API to track all kinds of events. This API provid
 **data** - Any type of data in JSON format.
 
 ```js
+import { trackCustomEvent } from '@convivainc/conviva-js-appanalytics';
+
 let custom_data = {
                     "identifier1": "test",
                     "identifier2": 1,
@@ -84,6 +78,8 @@ Custom Tags are global tags applied to all events and persist throughout the app
 
 **Set the custom tags:**
 ```js
+import { setCustomTags } from '@convivainc/conviva-js-appanalytics';
+
 // Adds the custom tags
 let customTagsToSet = {"tagKey1": "tagValue1","tagKey2": 1,"tagKey3":true};
 setCustomTags(customTagsToSet);
@@ -92,6 +88,8 @@ setCustomTags(customTagsToSet);
 
 **Clear previously set custom tags:**
 ```js
+import { unsetCustomTags } from '@convivainc/conviva-js-appanalytics';
+
 // Remove custom tags tagKey2 & tagKey3
 let customTagsToUnset = ['tagKey2', 'tagKey3'];
 unsetCustomTags(customTagsToUnset);
@@ -107,6 +105,8 @@ This feature supports to ingest `"traceparent"` header into network requests bas
 By default, when `trackPageView()` is called, the *Page Title* is set using `document.title`. However, you can override this by passing a custom title in the `trackPageView()` API:
 
 ```js
+import { trackPageView } from '@convivainc/conviva-js-appanalytics';
+
 // Uses document.title as the Page Title
 trackPageView();
 
@@ -117,11 +117,18 @@ trackPageView({"title": "Custom Page Title"});
 Error and exception auto-collection is enabled by default. Alternatively, you can manually report exceptions using the following API:
 
 ```js
-trackError({
-    message: 'Cannot get user object',
-    filename: 'shop.js',
-    error: exceptionObj // Exception object containing details about the error.
-});
+import { trackError } from '@convivainc/conviva-js-appanalytics';
+
+try {
+    //...
+} catch (error) {
+    trackError({
+        message: 'Cannot get user object',
+        filename: 'shop.js',
+        error: error // Passing the caught error object.
+    });
+}
+
 ```
 
 ### Client ID Synchronization
@@ -140,6 +147,8 @@ When using multiple Conviva JavaScript ECO SDK instances across different enviro
 **Retrieve the Client ID**
 
 ```js
+import { convivaAppTracker, getClientId } from '@convivainc/conviva-js-appanalytics';
+
 convivaAppTracker({
   appId: 'YOUR_APP_NAME_AS_STRING',
   convivaCustomerKey: 'CONVIVA_ACCOUNT_CUSTOMER_KEY',
@@ -153,6 +162,8 @@ clientId = getClientId();
 **Set the Client ID**
 
 ```js
+import { convivaAppTracker, getClientId } from '@convivainc/conviva-js-appanalytics';
+
 // Always call setClientId() before initializing convivaAppTracker() to set a specific clientId
 setClientId(clientId);
 
