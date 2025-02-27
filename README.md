@@ -249,16 +249,15 @@ Conviva automatically collects deviceMetadata for Web apps and mobile browsers. 
 
 ```js
     import { convivaAppTracker, ConvivaDeviceMetadata } from '@convivainc/conviva-js-appanalytics';
-    import { DeviceMetadataConstants } from '@convivainc/browser-tracker-core'
     
     const deviceMetadata: ConvivaDeviceMetadata = {
       DeviceBrand : 'Samsung',
       DeviceManufacturer : 'Samsung',
       DeviceModel : 'UTU7000',
-      DeviceType : DeviceMetadataConstants.DeviceType.SMARTTV,
+      DeviceType : "SmartTV",
       OperatingSystemName : 'Tizen',
       OperatingSystemVersion : '8.0',
-      DeviceCategory : DeviceMetadataConstants.DeviceCategory.SAMSUNG_TV,
+      DeviceCategory : "SAMSUNGTV",
       FrameworkName : 'Angular',
       FrameworkVersion : '8.0.0',
     };
