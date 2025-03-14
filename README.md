@@ -24,7 +24,7 @@ yarn add @convivainc/conviva-js-appanalytics
 
 ### 2. Initialization
 
-**Note**: It is recommended to initialize the tracker **as early as possible** during the DOM load sequence, such as `App.js`.
+**Note**: It is recommended to initialize the tracker as early **as possible** during the DOM load sequence, such as in `App.js`.
 
 ```js
 import { convivaAppTracker } from '@convivainc/conviva-js-appanalytics';
@@ -42,7 +42,7 @@ import { convivaAppTracker } from '@convivainc/conviva-js-appanalytics';
 **appVersion** - Set app version in string format.
 
 ### 3. Set the User ID
-User ID is a unique identifier used to distinguish individual viewers or devices. If using [Conviva Video Sensor](https://github.com/Conviva/conviva-js-coresdk), match it with the **Viewer ID**. 
+User ID is a unique string identifier to distinguish individual viewers. If using [Conviva Video Sensor](https://github.com/Conviva/conviva-js-coresdk), match it with the **Viewer ID**. 
 
 ```js
 import { setUserId } from '@convivainc/conviva-js-appanalytics';
@@ -326,14 +326,6 @@ Conviva automatically collects deviceMetadata for Web apps and mobile browsers. 
 
 </details>
 
-</details>
-
-
-<details>
-    <summary><b>Traceparent Header Generation and Collection</b></summary>
-
-This feature supports to ingest `"traceparent"` header into network requests based on the config provided. Please contact a Conviva representative to enable this feature.
-    
 </details>
 
 ## Auto-collected Events
